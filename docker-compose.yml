@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  apachePhp:
+    image: 'laravel-apache-php:1'
+    build: './container'
+    links:
+      - 'mysql:database'
+    volumes:
+      - './laravel:/laravel'
+    depends_on:
+      - 'mysql'
+    ports:
+      - '1338:80'
+
+  mysql:
+    image: 'mysql:8.0.1'
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=pwd123'
+      - 'MYSQL_DATABASE=laravel'
+    ports:
+      - '3307:3306'
